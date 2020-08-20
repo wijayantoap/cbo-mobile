@@ -78,7 +78,7 @@ export default class CategorieList extends React.Component {
         >
           <LottieView
             autoPlay
-            loop
+            loop={false}
             style={{
               height: 150,
               width: 150,

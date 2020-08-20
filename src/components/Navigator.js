@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home.js";
 import Categories from "../screens/Categories.js";
 import CategorieList from "../screens/CategorieList.js";
-import Setting from "../screens/Setting.js";
+import Miscellaneous from "../screens/Miscellaneous.js";
 import SinglePost from "../screens/SinglePost.js";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
@@ -86,10 +86,10 @@ export default function Navigator() {
     );
   }
 
-  function SettingStack() {
+  function MiscellaneousStack() {
     return (
       <Stack.Navigator>
-        <Stack.Screen name="Settings" component={Setting} />
+        <Stack.Screen name="Miscellaneous" component={Miscellaneous} />
       </Stack.Navigator>
     );
   }
@@ -115,8 +115,8 @@ export default function Navigator() {
                   iconName = focused ? "home" : "home-outline";
                 } else if (route.name === "Categories") {
                   iconName = focused ? "apps" : "apps-box";
-                } else if (route.name === "Settings") {
-                  iconName = focused ? "settings" : "settings-box";
+                } else if (route.name === "Miscellaneous") {
+                  iconName = "dropbox";
                 }
                 return (
                   <MaterialCommunityIcons
@@ -142,7 +142,7 @@ export default function Navigator() {
           >
             <Tabs.Screen name="Home" component={HomeStack} />
             <Tabs.Screen name="Categories" component={CategorieStack} />
-            <Tabs.Screen name="Settings" component={SettingStack} />
+            <Tabs.Screen name="Miscellaneous" component={MiscellaneousStack} />
           </Tabs.Navigator>
         </NavigationContainer>
       </AnimatedSplash>
