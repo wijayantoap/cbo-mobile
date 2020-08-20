@@ -24,6 +24,7 @@
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
+    "react-native-animated-nav-tab-bar": "^3.0.3",
     "react-native-animated-splash-screen": "^2.0.5",
     "react-native-fade-in-view": "^1.1.0",
     "react-native-gesture-handler": "~1.6.0",

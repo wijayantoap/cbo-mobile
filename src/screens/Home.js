@@ -58,7 +58,7 @@ class Home extends React.Component {
     return (
       <View
         style={{
-          paddingVertical: 20,
+          paddingVertical: 100,
           borderTopWidth: 1,
           borderColor: "#CED0CE",
         }}

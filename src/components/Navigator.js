@@ -24,6 +24,7 @@ import { ThemeContext } from "../components/ThemeController";
 import { AdMobBanner } from "expo-ads-admob";
 import AnimatedSplash from "react-native-animated-splash-screen";
 import { Image } from "react-native";
+import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 
 export default function Navigator() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -78,6 +79,7 @@ export default function Navigator() {
       >
         <Stack.Screen name="Categories" component={Categories} />
         <Stack.Screen name="CategorieList" component={CategorieList} />
+        <Stack.Screen name="SinglePost" component={SinglePost} />
       </Stack.Navigator>
     );
   }
@@ -90,7 +92,7 @@ export default function Navigator() {
     );
   }
 
-  const Tab = createBottomTabNavigator();
+  const Tabs = AnimatedTabBarNavigator();
   return (
     <PaperProvider theme={paper_theme}>
       <AnimatedSplash
@@ -102,7 +104,7 @@ export default function Navigator() {
         logoWidth={400}
       >
         <NavigationContainer theme={nav_theme}>
-          <Tab.Navigator
+          <Tabs.Navigator
             screenOptions={({ route }) => ({
               tabBarIcon: ({ focused, color, size }) => {
                 let iconName;
@@ -126,12 +128,20 @@ export default function Navigator() {
             tabBarOptions={{
               activeTintColor: "tomato",
               inactiveTintColor: "gray",
+              activeBackgroundColor: "#FFCF64",
+              labelStyle: {
+                fontWeight: "bold",
+              },
+            }}
+            appearence={{
+              floating: true,
+              horizontalPadding: 10,
             }}
           >
-            <Tab.Screen name="Home" component={HomeStack} />
-            <Tab.Screen name="Categories" component={CategorieStack} />
-            <Tab.Screen name="Settings" component={SettingStack} />
-          </Tab.Navigator>
+            <Tabs.Screen name="Home" component={HomeStack} />
+            <Tabs.Screen name="Categories" component={CategorieStack} />
+            <Tabs.Screen name="Settings" component={SettingStack} />
+          </Tabs.Navigator>
         </NavigationContainer>
       </AnimatedSplash>
       {/* <AdMobBanner
