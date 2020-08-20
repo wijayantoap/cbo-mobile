@@ -21,6 +21,7 @@ import {
 import { ThemeContext } from "../components/ThemeController";
 import { AdMobBanner } from "expo-ads-admob";
 import AnimatedSplash from "react-native-animated-splash-screen";
+import { Image, View } from "react-native";
 
 export default function Navigator() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -37,10 +38,30 @@ export default function Navigator() {
 
   const Stack = createStackNavigator();
 
+  function LogoTitle() {
+    return (
+      <Image
+        style={{
+          width: 250,
+          height: 50,
+          resizeMode: "contain",
+          alignSelf: "center",
+        }}
+        source={require("../../assets/logo-header.png")}
+      />
+    );
+  }
+
   function HomeStack() {
     return (
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            headerTitle: (props) => <LogoTitle {...props} />,
+          }}
+        />
         <Stack.Screen name="SinglePost" component={SinglePost} />
       </Stack.Navigator>
     );
