@@ -1,8 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home.js";
-import Bookmark from "../screens/Bookmark.js";
 import Categories from "../screens/Categories.js";
 import CategorieList from "../screens/CategorieList.js";
 import Setting from "../screens/Setting.js";
@@ -69,7 +71,11 @@ export default function Navigator() {
 
   function CategorieStack() {
     return (
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      >
         <Stack.Screen name="Categories" component={Categories} />
         <Stack.Screen name="CategorieList" component={CategorieList} />
       </Stack.Navigator>
@@ -103,8 +109,6 @@ export default function Navigator() {
 
                 if (route.name === "Home") {
                   iconName = focused ? "home" : "home-outline";
-                } else if (route.name === "Bookmark") {
-                  iconName = focused ? "bookmark" : "bookmark-outline";
                 } else if (route.name === "Categories") {
                   iconName = focused ? "apps" : "apps-box";
                 } else if (route.name === "Settings") {
@@ -126,7 +130,6 @@ export default function Navigator() {
           >
             <Tab.Screen name="Home" component={HomeStack} />
             <Tab.Screen name="Categories" component={CategorieStack} />
-            <Tab.Screen name="Bookmark" component={Bookmark} />
             <Tab.Screen name="Settings" component={SettingStack} />
           </Tab.Navigator>
         </NavigationContainer>
