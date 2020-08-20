@@ -33,11 +33,9 @@ export default function Navigator() {
   let paper_theme = theme ? PaperDarkTheme : PaperDefaultTheme;
   let nav_theme = theme ? DarkTheme : DefaultTheme;
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoaded(true);
-    }, 1500);
-  });
+  setTimeout(() => {
+    setIsLoaded(true);
+  }, 1500);
 
   const Stack = createStackNavigator();
 

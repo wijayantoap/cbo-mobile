@@ -142,7 +142,7 @@ class SinglePost extends React.Component {
           </ScrollView>
           <FAB
             style={styles.fab}
-            onPress={() => Linking.openURL(post[0].link)}
+            onPress={() => Linking.openURL(`${post[0].link}#comments`)}
             small
             label={"Comment"}
             icon="comment"
