@@ -1,5 +1,11 @@
 import React from "react";
-import { ScrollView, Share, TouchableOpacity } from "react-native";
+import {
+  ScrollView,
+  Share,
+  TouchableOpacity,
+  StyleSheet,
+  Linking,
+} from "react-native";
 import {
   Avatar,
   Card,
@@ -7,12 +13,22 @@ import {
   Paragraph,
   List,
   withTheme,
+  FAB,
 } from "react-native-paper";
 import HTML from "react-native-htmlview";
 import moment from "moment";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
 import FadeInView from "react-native-fade-in-view";
+
+const styles = StyleSheet.create({
+  fab: {
+    position: "absolute",
+    backgroundColor: "#e85625",
+    right: "5%",
+    bottom: 100,
+  },
+});
 
 class SinglePost extends React.Component {
   constructor(props) {
@@ -65,9 +81,10 @@ class SinglePost extends React.Component {
         />
       );
     } else {
+      let post_id = this.props.route.params?.post_id;
       return (
-        <ScrollView>
-          <FadeInView duration={750} style={{ alignItems: "center" }}>
+        <FadeInView duration={750} style={{ alignItems: "center" }}>
+          <ScrollView>
             <Card>
               <Card.Content>
                 <Title>{post[0].title.rendered} </Title>
@@ -107,7 +124,7 @@ class SinglePost extends React.Component {
               <Card.Cover
                 source={{ uri: post[0].jetpack_featured_media_url }}
               />
-              <Card.Content>
+              <Card.Content style={{ marginBottom: 100 }}>
                 <HTML
                   value={post[0].content.rendered}
                   addLineBreaks={false}
@@ -122,8 +139,15 @@ class SinglePost extends React.Component {
                 />
               </Card.Content>
             </Card>
-          </FadeInView>
-        </ScrollView>
+          </ScrollView>
+          <FAB
+            style={styles.fab}
+            onPress={() => Linking.openURL(post[0].link)}
+            small
+            label={"Comment"}
+            icon="comment"
+          />
+        </FadeInView>
       );
     }
   }
