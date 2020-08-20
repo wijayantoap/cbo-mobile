@@ -1,17 +1,11 @@
 import React from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  ActivityIndicator,
-  TouchableOpacity,
-} from "react-native";
-import { Card, Title } from "react-native-paper";
-import moment from "moment";
+import { View, FlatList, ActivityIndicator } from "react-native";
 import ContentPlaceHolder from "../components/ContentPlaceholder";
 import { AdMobBanner } from "expo-ads-admob";
+import ContentCard from "../components/ContentCard.js";
+import { useScrollToTop } from "@react-navigation/native";
 
-export default class Home extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
 
@@ -79,44 +73,28 @@ export default class Home extends React.Component {
       return <ContentPlaceHolder />;
     } else {
       return (
-        <View>
-          <FlatList
-            data={this.state.posts}
-            onRefresh={() => this.onRefresh()}
-            refreshing={this.state.isFetching}
-            onEndReached={this.handleLoadMore}
-            onEndReachedThreshold={0.1}
-            ListFooterComponent={this.renderFooter}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                activeOpacity={0.5}
-                onPress={() =>
-                  this.props.navigation.navigate("SinglePost", {
-                    post_id: item.id,
-                  })
-                }
-              >
-                <Card
-                  style={{
-                    marginBottom: 10,
-                  }}
-                >
-                  <Card.Cover
-                    source={{ uri: item.jetpack_featured_media_url }}
-                  />
-                  <Card.Content>
-                    <Title>{item.title.rendered}</Title>
-                  </Card.Content>
-                  <Card.Content>
-                    <Text>{moment(item.date).format("DD MMMM YYYY")}</Text>
-                  </Card.Content>
-                </Card>
-              </TouchableOpacity>
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        </View>
+        <FlatList
+          data={this.state.posts}
+          onRefresh={() => this.onRefresh()}
+          refreshing={this.state.isFetching}
+          onEndReached={this.handleLoadMore}
+          onEndReachedThreshold={0.1}
+          ListFooterComponent={this.renderFooter}
+          renderItem={({ item }) => (
+            <ContentCard item={item} navigation={this.props.navigation} />
+          )}
+          keyExtractor={(item, index) => index.toString()}
+          ref={this.props.scrollRef}
+        />
       );
     }
   }
+}
+
+export default function (props) {
+  const ref = React.useRef(null);
+
+  useScrollToTop(ref);
+
+  return <Home {...props} scrollRef={ref} />;
 }

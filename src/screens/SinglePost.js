@@ -32,9 +32,7 @@ class SinglePost extends React.Component {
 
   componentDidMount() {
     this.animation.play();
-    this.fetchPost().then(() => {
-      this.renderBookMark(this.props.navigation.getParam("post_id"));
-    });
+    this.fetchPost();
   }
 
   onShare = async (title, uri) => {
@@ -59,46 +57,6 @@ class SinglePost extends React.Component {
       isLoading: false,
     });
   }
-
-  renderBookMark = async (post_id) => {
-    await AsyncStorage.getItem("bookmark").then((token) => {
-      const res = JSON.parse(token);
-      let data = res.find((value) => value === post_id);
-      if (data !== null) {
-        let data = res.find((value) => value === post_id);
-        return data == null
-          ? this.setState({ bookmark: false })
-          : this.setState({ bookmark: true });
-      }
-    });
-  };
-
-  saveBookMark = async (post_id) => {
-    this.setState({ bookmark: true });
-    await AsyncStorage.getItem("bookmark").then((token) => {
-      const res = JSON.parse(token);
-      if (res !== null) {
-        let data = res.find((value) => value === post_id);
-        if (data == null) {
-          res.push(post_id);
-          AsyncStorage.setItem("bookmark", JSON.stringify(res));
-        }
-      } else {
-        let bookmark = [];
-        bookmark.push(post_id);
-        AsyncStorage.setItem("bookmark", JSON.stringify(bookmark));
-      }
-    });
-  };
-
-  removeBookMark = async (post_id) => {
-    this.setState({ bookmark: false });
-    const bookmark = await AsyncStorage.getItem("bookmark").then((token) => {
-      const res = JSON.parse(token);
-      return res.filter((e) => e !== post_id);
-    });
-    await AsyncStorage.setItem("bookmark", JSON.stringify(bookmark));
-  };
 
   render() {
     let post = this.state.post;
@@ -151,28 +109,6 @@ class SinglePost extends React.Component {
                     post[0].date,
                     "YYYYMMDD"
                   ).fromNow()}`}
-                  right={(props) => {
-                    if (this.state.bookmark) {
-                      return (
-                        <TouchableOpacity
-                          onPress={() => this.removeBookMark(post[0].id)}
-                        >
-                          <MaterialCommunityIcons name="bookmark" size={30} />
-                        </TouchableOpacity>
-                      );
-                    } else {
-                      return (
-                        <TouchableOpacity
-                          onPress={() => this.saveBookMark(post[0].id)}
-                        >
-                          <MaterialCommunityIcons
-                            name="bookmark-outline"
-                            size={30}
-                          />
-                        </TouchableOpacity>
-                      );
-                    }
-                  }}
                 />
                 <Paragraph />
               </Card.Content>

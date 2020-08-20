@@ -21,7 +21,7 @@ import {
 import { ThemeContext } from "../components/ThemeController";
 import { AdMobBanner } from "expo-ads-admob";
 import AnimatedSplash from "react-native-animated-splash-screen";
-import { Image, View } from "react-native";
+import { Image } from "react-native";
 
 export default function Navigator() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -33,7 +33,7 @@ export default function Navigator() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoaded(true);
-    }, 2000);
+    }, 1500);
   });
 
   const Stack = createStackNavigator();

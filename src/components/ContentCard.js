@@ -13,33 +13,29 @@ import {
 const ContentCard = ({ item, navigation, theme }) => {
   return (
     <View>
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("SinglePost", {
-            post_id: item.id,
-          })
-        }
+      <Card
+        style={{
+          marginBottom: 20,
+        }}
       >
-        <Card
-          style={{
-            marginBottom: 10,
-          }}
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() =>
+            navigation.navigate("SinglePost", {
+              post_id: item.id,
+            })
+          }
+          style={{ paddingBottom: 10 }}
         >
           <Card.Cover source={{ uri: item.jetpack_featured_media_url }} />
           <Card.Content>
             <Title>{item.title.rendered}</Title>
           </Card.Content>
           <Card.Content>
-            <Text
-              style={{
-                color: theme.colors.text,
-              }}
-            >
-              {moment(item.date).format("DD MMMM YYYY")}
-            </Text>
+            <Text>{moment(item.date).format("DD MMMM YYYY")}</Text>
           </Card.Content>
-        </Card>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </Card>
     </View>
   );
 };
