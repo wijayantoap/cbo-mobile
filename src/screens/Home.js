@@ -12,28 +12,28 @@ class Home extends React.Component {
 
     this.state = {
       posts: [],
-      isFetching: true,
+      isLoading: true,
       page: 1,
       lastPage: false,
     };
   }
 
   componentDidMount() {
-    this.fetchLastestPost();
+    this.fetchPost();
   }
 
   onRefresh() {
     this.setState(
       {
-        isFetching: true,
+        isLoading: true,
       },
       function () {
-        this.fetchLastestPost(true);
+        this.fetchPost(true);
       }
     );
   }
 
-  async fetchLastestPost(isRefresh = false) {
+  async fetchPost(isRefresh = false) {
     const response = await fetch(
       `https://caribeasiswa.online/wp-json/wp/v2/posts?per_page=5&page=${
         isRefresh ? 1 : this.state.page
@@ -43,7 +43,7 @@ class Home extends React.Component {
     if (posts.data && posts.data.status === 400) {
       this.setState({
         lastPage: true,
-        isFetching: false,
+        isLoading: false,
       });
     } else {
       this.setState({
@@ -52,7 +52,7 @@ class Home extends React.Component {
           : this.state.page === 1
           ? posts
           : [...this.state.posts, ...posts],
-        isFetching: false,
+        isLoading: false,
       });
     }
   }
@@ -63,13 +63,13 @@ class Home extends React.Component {
         page: this.state.page + 1,
       },
       () => {
-        this.fetchLastestPost();
+        this.fetchPost();
       }
     );
   };
 
   renderFooter = () => {
-    if (this.state.isFetching || this.state.lastPage)
+    if (this.state.isLoading || this.state.lastPage)
       return (
         <View
           style={{ display: "flex", alignItems: "center", paddingBottom: 120 }}
@@ -101,14 +101,14 @@ class Home extends React.Component {
   };
 
   render() {
-    if (this.state.isFetching) {
+    if (this.state.isLoading) {
       return <ContentPlaceHolder />;
     } else {
       return (
         <FlatList
           data={this.state.posts}
           onRefresh={() => this.onRefresh()}
-          refreshing={this.state.isFetching}
+          refreshing={this.state.isLoading}
           onEndReached={!this.state.lastPage && this.handleLoadMore}
           onEndReachedThreshold={0.1}
           ListFooterComponent={this.renderFooter}
