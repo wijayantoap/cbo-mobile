@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  ScrollView,
-  Share,
-  TouchableOpacity,
-  AsyncStorage,
-} from "react-native";
+import { ScrollView, Share, TouchableOpacity } from "react-native";
 import {
   Avatar,
   Card,
@@ -31,7 +26,6 @@ class SinglePost extends React.Component {
   }
 
   componentDidMount() {
-    this.animation.play();
     this.fetchPost();
   }
 
@@ -63,9 +57,7 @@ class SinglePost extends React.Component {
     if (this.state.isLoading) {
       return (
         <LottieView
-          ref={(animation) => {
-            this.animation = animation;
-          }}
+          autoPlay
           style={{
             backgroundColor: "#fff",
           }}

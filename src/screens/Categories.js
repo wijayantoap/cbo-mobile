@@ -42,8 +42,8 @@ class Categories extends React.Component {
       categories: [],
     };
   }
+
   componentDidMount() {
-    this.animation.play();
     this.fetchCategorie();
   }
 
@@ -63,9 +63,7 @@ class Categories extends React.Component {
     if (this.state.isLoading) {
       return (
         <LottieView
-          ref={(animation) => {
-            this.animation = animation;
-          }}
+          autoPlay
           style={{
             backgroundColor: "#fff",
           }}
@@ -77,66 +75,65 @@ class Categories extends React.Component {
         <FlatList
           data={this.state.categories}
           style={{ backgroundColor: "#fff" }}
-          renderItem={({ item, index }) =>
-            !item.name.includes("Uncategorized") && (
-              <Card
-                elevation={0}
-                style={{
-                  borderRadius: 8,
-                  marginTop: 15,
-                  marginLeft: 30,
-                  marginRight: 30,
-                  marginBottom: 5,
-                  padding: 15,
-                  backgroundColor: colors[index % 10],
-                }}
+          renderItem={({ item, index }) => (
+            <Card
+              elevation={0}
+              style={{
+                borderRadius: 8,
+                marginTop: 15,
+                marginLeft: 30,
+                marginRight: 30,
+                marginBottom:
+                  index === this.state.categories.length - 1 ? 100 : 5,
+                padding: 15,
+                backgroundColor: colors[index % 10],
+              }}
+            >
+              <TouchableOpacity
+                onPress={() =>
+                  this.props.navigation.navigate("Categorie List", {
+                    categorie_id: item.id,
+                    categorie_name: item.name,
+                  })
+                }
               >
-                <TouchableOpacity
-                  onPress={() =>
-                    this.props.navigation.navigate("CategorieList", {
-                      categorie_id: item.id,
-                      categorie_name: item.name,
-                    })
-                  }
-                >
-                  <Card.Content>
-                    <View
-                      style={{
-                        flex: 1,
-                        flexDirection: "row",
-                        alignItems: "center",
-                      }}
-                    >
-                      <View style={{ marginRight: 10 }}>
-                        {item.name.includes("Beasiswa") ? (
-                          <Entypo
-                            name="graduation-cap"
-                            size={24}
-                            color={fontColors[index % 10]}
-                          />
-                        ) : (
-                          <FontAwesome5
-                            name="lightbulb"
-                            size={24}
-                            color={fontColors[index % 10]}
-                          />
-                        )}
-                      </View>
-                      <Title style={{ color: fontColors[index % 10] }}>
-                        {item.name}
-                      </Title>
-                      <AntDesign
-                        name="right"
-                        size={24}
-                        color={fontColors[index % 10]}
-                        style={{ marginLeft: "auto" }}
-                      />
+                <Card.Content>
+                  <View
+                    style={{
+                      flex: 1,
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <View style={{ marginRight: 10 }}>
+                      {item.name.includes("Beasiswa") ? (
+                        <Entypo
+                          name="graduation-cap"
+                          size={24}
+                          color={fontColors[index % 10]}
+                        />
+                      ) : (
+                        <FontAwesome5
+                          name="lightbulb"
+                          size={24}
+                          color={fontColors[index % 10]}
+                        />
+                      )}
                     </View>
-                  </Card.Content>
-                </TouchableOpacity>
-              </Card>
-            )
-          }
+                    <Title style={{ color: fontColors[index % 10] }}>
+                      {item.name}
+                    </Title>
+                    <AntDesign
+                      name="right"
+                      size={24}
+                      color={fontColors[index % 10]}
+                      style={{ marginLeft: "auto" }}
+                    />
+                  </View>
+                </Card.Content>
+              </TouchableOpacity>
+            </Card>
+          )}
           keyExtractor={(item, index) => index.toString()}
           ref={this.props.scrollRef}
         />

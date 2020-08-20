@@ -78,7 +78,11 @@ export default function Navigator() {
         }}
       >
         <Stack.Screen name="Categories" component={Categories} />
-        <Stack.Screen name="CategorieList" component={CategorieList} />
+        <Stack.Screen
+          name="Categorie List"
+          component={CategorieList}
+          options={({ route }) => ({ title: route.params.name })}
+        />
         <Stack.Screen name="SinglePost" component={SinglePost} />
       </Stack.Navigator>
     );
@@ -126,9 +130,9 @@ export default function Navigator() {
               },
             })}
             tabBarOptions={{
-              activeTintColor: "tomato",
+              activeTintColor: "#fff",
               inactiveTintColor: "gray",
-              activeBackgroundColor: "#FFCF64",
+              activeBackgroundColor: "#0e598c",
               labelStyle: {
                 fontWeight: "bold",
               },

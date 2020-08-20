@@ -4,6 +4,7 @@ import ContentPlaceHolder from "../components/ContentPlaceholder";
 import { AdMobBanner } from "expo-ads-admob";
 import ContentCard from "../components/ContentCard.js";
 import { useScrollToTop } from "@react-navigation/native";
+import LottieView from "lottie-react-native";
 
 class Home extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class Home extends React.Component {
       posts: [],
       isFetching: true,
       page: 1,
+      lastPage: false,
     };
   }
 
@@ -26,20 +28,33 @@ class Home extends React.Component {
         isFetching: true,
       },
       function () {
-        this.fetchLastestPost();
+        this.fetchLastestPost(true);
       }
     );
   }
 
-  async fetchLastestPost() {
+  async fetchLastestPost(isRefresh = false) {
     const response = await fetch(
-      `https://caribeasiswa.online/wp-json/wp/v2/posts?per_page=5&page=${this.state.page}`
+      `https://caribeasiswa.online/wp-json/wp/v2/posts?per_page=5&page=${
+        isRefresh ? 1 : this.state.page
+      }`
     );
     const posts = await response.json();
-    this.setState({
-      posts: this.state.page === 1 ? posts : [...this.state.posts, ...posts],
-      isFetching: false,
-    });
+    if (posts.data && posts.data.status === 400) {
+      this.setState({
+        lastPage: true,
+        isFetching: false,
+      });
+    } else {
+      this.setState({
+        posts: isRefresh
+          ? posts
+          : this.state.page === 1
+          ? posts
+          : [...this.state.posts, ...posts],
+        isFetching: false,
+      });
+    }
   }
 
   handleLoadMore = () => {
@@ -54,18 +69,35 @@ class Home extends React.Component {
   };
 
   renderFooter = () => {
-    if (this.state.isFetching) return null;
-    return (
-      <View
-        style={{
-          paddingVertical: 100,
-          borderTopWidth: 1,
-          borderColor: "#CED0CE",
-        }}
-      >
-        <ActivityIndicator animating size="large" />
-      </View>
-    );
+    if (this.state.isFetching || this.state.lastPage)
+      return (
+        <View
+          style={{ display: "flex", alignItems: "center", paddingBottom: 120 }}
+        >
+          <LottieView
+            autoPlay
+            loop
+            style={{
+              height: 150,
+              width: 150,
+            }}
+            source={require("../../assets/success.json")}
+          />
+        </View>
+      );
+    if (!this.state.lastPage) {
+      return (
+        <View
+          style={{
+            paddingBottom: 100,
+            borderTopWidth: 1,
+            borderColor: "#CED0CE",
+          }}
+        >
+          <ActivityIndicator animating size="large" />
+        </View>
+      );
+    }
   };
 
   render() {
@@ -77,7 +109,7 @@ class Home extends React.Component {
           data={this.state.posts}
           onRefresh={() => this.onRefresh()}
           refreshing={this.state.isFetching}
-          onEndReached={this.handleLoadMore}
+          onEndReached={!this.state.lastPage && this.handleLoadMore}
           onEndReachedThreshold={0.1}
           ListFooterComponent={this.renderFooter}
           renderItem={({ item }) => (

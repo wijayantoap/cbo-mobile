@@ -15,8 +15,10 @@ export default class CategorieList extends React.Component {
   }
 
   componentDidMount() {
-    this.animation.play();
     this.fetchPost();
+    const { navigation } = this.props;
+    let categorie_name = this.props.route.params?.categorie_name;
+    navigation.setOptions({ title: categorie_name });
   }
 
   async fetchPost() {
@@ -29,23 +31,29 @@ export default class CategorieList extends React.Component {
   }
 
   render() {
-    let categorie_name = this.props.route.params?.categorie_name;
     if (this.state.isLoading) {
       return (
         <LottieView
-          ref={(animation) => {
-            this.animation = animation;
-          }}
+          autoPlay
           style={{
             backgroundColor: "#fff",
           }}
           source={require("../../assets/shape-types.json")}
         />
       );
+    } else if (this.state.posts.length === 0) {
+      return (
+        <LottieView
+          autoPlay
+          style={{
+            backgroundColor: "#fff",
+          }}
+          source={require("../../assets/empty-box.json")}
+        />
+      );
     } else {
       return (
         <View>
-          <Title style={{ marginLeft: 30 }}>{categorie_name}</Title>
           <FlatList
             data={this.state.posts}
             renderItem={({ item }) => (
