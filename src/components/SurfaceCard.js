@@ -5,15 +5,11 @@ import LottieView from "lottie-react-native";
 
 export default SurfaceCard = (props) => {
   return (
-    <TouchableOpacity
-      onPress={props.onPress}
-      activeOpacity={0.5}
-      underlayColor="white"
-    >
+    <TouchableOpacity onPress={props.onPress} activeOpacity={0.5}>
       <Surface style={styles.surface}>
         <LottieView
           autoPlay
-          loop
+          loop={false}
           style={{
             height: 70,
             width: 70,

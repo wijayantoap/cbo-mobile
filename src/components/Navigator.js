@@ -63,7 +63,11 @@ export default function Navigator() {
             headerTitle: (props) => <LogoTitle {...props} />,
           }}
         />
-        <Stack.Screen name="SinglePost" component={SinglePost} />
+        <Stack.Screen
+          name="Details"
+          component={SinglePost}
+          options={({ route }) => ({ title: route.params.name })}
+        />
       </Stack.Navigator>
     );
   }
@@ -81,7 +85,11 @@ export default function Navigator() {
           component={CategorieList}
           options={({ route }) => ({ title: route.params.name })}
         />
-        <Stack.Screen name="SinglePost" component={SinglePost} />
+        <Stack.Screen
+          name="Details"
+          component={SinglePost}
+          options={({ route }) => ({ title: route.params.name })}
+        />
       </Stack.Navigator>
     );
   }

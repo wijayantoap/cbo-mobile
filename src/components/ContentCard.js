@@ -14,7 +14,7 @@ const ContentCard = ({ item, navigation, theme }) => {
         <TouchableOpacity
           activeOpacity={0.5}
           onPress={() =>
-            navigation.navigate("SinglePost", {
+            navigation.navigate("Details", {
               post_id: item.id,
             })
           }

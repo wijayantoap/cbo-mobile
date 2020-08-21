@@ -5,6 +5,7 @@ import { AdMobBanner } from "expo-ads-admob";
 import ContentCard from "../components/ContentCard.js";
 import { useScrollToTop } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
+import { AsyncStorage } from "react-native";
 
 class Home extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.fetchPost();
+    this.fetchCategory();
   }
 
   onRefresh() {
@@ -54,6 +56,19 @@ class Home extends React.Component {
           : [...this.state.posts, ...posts],
         isLoading: false,
       });
+    }
+  }
+
+  async fetchCategory() {
+    const response = await fetch(
+      `https://caribeasiswa.online/wp-json/wp/v2/categories?per_page=100`
+    );
+    const categories = await response.json();
+    const _categories = categories.map(({ id, name }) => ({ id, name }));
+    try {
+      await AsyncStorage.setItem("categories", JSON.stringify(_categories));
+    } catch (error) {
+      alert(error);
     }
   }
 
