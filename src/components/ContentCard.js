@@ -1,9 +1,9 @@
 import React from "react";
-import { View, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import moment from "moment";
-import { Card, Title, withTheme } from "react-native-paper";
+import { Card, Title, withTheme, Text } from "react-native-paper";
 
-const ContentCard = ({ item, navigation, theme }) => {
+const ContentCard = ({ item, navigation }) => {
   return (
     <View>
       <Card

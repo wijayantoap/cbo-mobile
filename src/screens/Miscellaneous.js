@@ -213,13 +213,13 @@ const Miscellaneous = () => {
               }
             />
           </View>
-          <View>
+          {/* <View>
             <List.Item
               title="Dark Mode"
               left={() => <List.Icon icon="brightness-4" />}
               right={() => <Switch value={theme} onValueChange={toggleTheme} />}
             />
-          </View>
+          </View> */}
         </View>
       </>
     );
