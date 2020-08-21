@@ -1,6 +1,5 @@
 import React from "react";
 import { View, FlatList, ActivityIndicator } from "react-native";
-import { Title } from "react-native-paper";
 import ContentCard from "../components/ContentCard.js";
 import LottieView from "lottie-react-native";
 

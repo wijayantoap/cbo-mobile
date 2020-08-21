@@ -176,12 +176,13 @@ class SinglePost extends React.Component {
               </Card.Content>
               <Card.Content style={{ marginBottom: 150 }}>
                 <Title>Related Post</Title>
-                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                <ScrollView horizontal showsHorizontalScrollIndicator={true}>
                   {post[0]["jetpack-related-posts"].map((post) => (
                     <SmallContentCard
                       id={post.id}
                       image={post.img.src}
                       name={post.title}
+                      date={post.date}
                       navigation={this.props.navigation}
                     />
                   ))}

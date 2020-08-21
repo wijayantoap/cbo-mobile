@@ -3,7 +3,6 @@ import {
   createStackNavigator,
   CardStyleInterpolators,
 } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home.js";
 import Categories from "../screens/Categories.js";
 import CategorieList from "../screens/CategorieList.js";

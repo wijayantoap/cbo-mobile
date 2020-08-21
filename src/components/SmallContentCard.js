@@ -2,7 +2,7 @@ import React from "react";
 import { View, TouchableOpacity, Text, Image } from "react-native";
 import { withTheme } from "react-native-paper";
 
-const SmallContentCard = (props, { theme }) => {
+const SmallContentCard = (props) => {
   return (
     <TouchableOpacity
       activeOpacity={0.5}
@@ -14,11 +14,9 @@ const SmallContentCard = (props, { theme }) => {
     >
       <View
         style={{
-          height: 160,
+          height: 200,
           width: 160,
           marginRight: 20,
-          borderWidth: 0.5,
-          borderColor: "#ddddd",
         }}
       >
         <View style={{ flex: 2 }}>
@@ -33,6 +31,7 @@ const SmallContentCard = (props, { theme }) => {
           <Text numberOfLines={3} style={{ fontSize: 10 }}>
             {props.name}
           </Text>
+          <Text style={{ fontSize: 10, opacity: 0.4 }}>{props.date}</Text>
         </View>
       </View>
     </TouchableOpacity>
