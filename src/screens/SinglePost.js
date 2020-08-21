@@ -24,6 +24,7 @@ import LottieView from "lottie-react-native";
 import FadeInView from "react-native-fade-in-view";
 import { AsyncStorage } from "react-native";
 import SmallContentCard from "../components/SmallContentCard";
+import { AdMobBanner } from "expo-ads-admob";
 
 const styles = StyleSheet.create({
   fab: {
@@ -123,10 +124,11 @@ class SinglePost extends React.Component {
                     justifyContent: "center",
                   }}
                 >
-                  {this.state.categories.map((category) => (
+                  {this.state.categories.map((category, index) => (
                     <Chip
                       style={{ margin: 4, padding: 0 }}
                       textStyle={{ fontSize: 12 }}
+                      key={index}
                     >
                       {category.name}
                     </Chip>
@@ -159,6 +161,13 @@ class SinglePost extends React.Component {
               <Card.Cover
                 source={{ uri: post[0].jetpack_featured_media_url }}
               />
+              <Card.Content style={{ marginTop: 25, alignSelf: "center" }}>
+                <AdMobBanner
+                  bannerSize="banner"
+                  adUnitID="ca-app-pub-1112252263707173/1136467677"
+                  servePersonalizedAds
+                />
+              </Card.Content>
               <Card.Content style={{ marginTop: 25 }}>
                 <HTML
                   value={post[0].content.rendered}
@@ -174,19 +183,40 @@ class SinglePost extends React.Component {
                   }}
                 />
               </Card.Content>
-              <Card.Content style={{ marginBottom: 150 }}>
+              <Card.Content style={{ alignSelf: "center" }}>
+                <AdMobBanner
+                  bannerSize="mediumRectangle"
+                  adUnitID="ca-app-pub-1112252263707173/3187915940"
+                  servePersonalizedAds
+                />
+              </Card.Content>
+              <Card.Content>
                 <Title>Related Post</Title>
                 <ScrollView horizontal showsHorizontalScrollIndicator={true}>
-                  {post[0]["jetpack-related-posts"].map((post) => (
+                  {post[0]["jetpack-related-posts"].map((post, index) => (
                     <SmallContentCard
                       id={post.id}
                       image={post.img.src}
                       name={post.title}
                       date={post.date}
                       navigation={this.props.navigation}
+                      key={index}
                     />
                   ))}
                 </ScrollView>
+              </Card.Content>
+              <Card.Content
+                style={{
+                  alignSelf: "center",
+                  marginBottom: 150,
+                  marginTop: 25,
+                }}
+              >
+                <AdMobBanner
+                  bannerSize="banner"
+                  adUnitID="ca-app-pub-1112252263707173/1603387444"
+                  servePersonalizedAds
+                />
               </Card.Content>
             </Card>
           </ScrollView>

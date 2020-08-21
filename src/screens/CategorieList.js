@@ -2,6 +2,7 @@ import React from "react";
 import { View, FlatList, ActivityIndicator } from "react-native";
 import ContentCard from "../components/ContentCard.js";
 import LottieView from "lottie-react-native";
+import { AdMobBanner } from "expo-ads-admob";
 
 export default class CategorieList extends React.Component {
   constructor(props) {
@@ -132,10 +133,24 @@ export default class CategorieList extends React.Component {
             onEndReached={!this.state.lastPage && this.handleLoadMore}
             onEndReachedThreshold={0.1}
             ListFooterComponent={this.renderFooter}
-            renderItem={({ item }) => (
-              <ContentCard item={item} navigation={this.props.navigation} />
+            renderItem={({ item, index }) => (
+              <>
+                {index % 4 === 0 && (
+                  <AdMobBanner
+                    bannerSize="mediumRectangle"
+                    adUnitID="ca-app-pub-1112252263707173/6085542023"
+                    servePersonalizedAds
+                    style={{
+                      alignSelf: "center",
+                      marginTop: index === 0 ? 20 : 0,
+                      marginBottom: 20,
+                    }}
+                  />
+                )}
+                <ContentCard item={item} navigation={this.props.navigation} />
+              </>
             )}
-            keyExtractor={(item, index) => index.toString()}
+            keyExtractor={(item) => item.id.toString()}
           />
         </View>
       );

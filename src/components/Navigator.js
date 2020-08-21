@@ -32,9 +32,11 @@ export default function Navigator() {
   let paper_theme = theme ? PaperDarkTheme : PaperDefaultTheme;
   let nav_theme = theme ? DarkTheme : DefaultTheme;
 
-  setTimeout(() => {
-    setIsLoaded(true);
-  }, 1500);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoaded(true);
+    }, 1500);
+  });
 
   const Stack = createStackNavigator();
 
@@ -153,14 +155,6 @@ export default function Navigator() {
           </Tabs.Navigator>
         </NavigationContainer>
       </AnimatedSplash>
-      {/* <AdMobBanner
-        bannerSize="fullBanner"
-        adUnitID="ca-app-pub-3940256099942544/6300978111"
-        servePersonalizedAds
-        // onDidFailToReceiveAdWithError={this.bannerError}
-      /> */}
     </PaperProvider>
   );
 }
-
-// ca-app-pub-1112252263707173/8125312198 real banner

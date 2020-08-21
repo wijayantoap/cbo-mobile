@@ -127,10 +127,20 @@ class Home extends React.Component {
           onEndReached={!this.state.lastPage && this.handleLoadMore}
           onEndReachedThreshold={0.1}
           ListFooterComponent={this.renderFooter}
-          renderItem={({ item }) => (
-            <ContentCard item={item} navigation={this.props.navigation} />
+          renderItem={({ item, index }) => (
+            <>
+              {index % 4 === 0 && index !== 0 && (
+                <AdMobBanner
+                  bannerSize="banner"
+                  adUnitID="ca-app-pub-1112252263707173/8085019402"
+                  servePersonalizedAds
+                  style={{ alignSelf: "center", marginBottom: 25 }}
+                />
+              )}
+              <ContentCard item={item} navigation={this.props.navigation} />
+            </>
           )}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item) => item.id.toString()}
           ref={this.props.scrollRef}
         />
       );

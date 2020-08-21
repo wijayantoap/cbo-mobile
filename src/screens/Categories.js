@@ -1,11 +1,12 @@
 import React from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
-import { Card, Title } from "react-native-paper";
+import { Card, Title, Divider } from "react-native-paper";
 import LottieView from "lottie-react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useScrollToTop } from "@react-navigation/native";
+import { AdMobBanner } from "expo-ads-admob";
 
 const colors = [
   "#badbff",
@@ -76,63 +77,86 @@ class Categories extends React.Component {
           data={this.state.categories}
           style={{ backgroundColor: "#fff" }}
           renderItem={({ item, index }) => (
-            <Card
-              elevation={0}
-              style={{
-                borderRadius: 8,
-                marginTop: 15,
-                marginLeft: 30,
-                marginRight: 30,
-                marginBottom:
-                  index === this.state.categories.length - 1 ? 100 : 5,
-                padding: 15,
-                backgroundColor: colors[index % 10],
-              }}
-            >
-              <TouchableOpacity
-                onPress={() =>
-                  this.props.navigation.navigate("Categorie List", {
-                    categorie_id: item.id,
-                    categorie_name: item.name,
-                  })
-                }
-              >
-                <Card.Content>
-                  <View
+            <>
+              {index % 6 === 0 && index !== 0 && (
+                <>
+                  <Divider
                     style={{
-                      flex: 1,
-                      flexDirection: "row",
-                      alignItems: "center",
+                      marginTop: 10,
+                      height: 2,
+                      marginLeft: 30,
+                      marginRight: 30,
                     }}
-                  >
-                    <View style={{ marginRight: 10 }}>
-                      {item.name.includes("Beasiswa") ? (
-                        <Entypo
-                          name="graduation-cap"
-                          size={24}
-                          color={fontColors[index % 10]}
-                        />
-                      ) : (
-                        <FontAwesome5
-                          name="lightbulb"
-                          size={24}
-                          color={fontColors[index % 10]}
-                        />
-                      )}
+                  />
+                  <AdMobBanner
+                    bannerSize="banner"
+                    adUnitID="ca-app-pub-1112252263707173/9290305771"
+                    servePersonalizedAds
+                    style={{ alignSelf: "center", marginVertical: 10 }}
+                  />
+                  <Divider
+                    style={{ height: 2, marginLeft: 30, marginRight: 30 }}
+                  />
+                </>
+              )}
+              <Card
+                elevation={0}
+                style={{
+                  borderRadius: 8,
+                  marginTop: 15,
+                  marginLeft: 30,
+                  marginRight: 30,
+                  marginBottom:
+                    index === this.state.categories.length - 1 ? 100 : 5,
+                  padding: 15,
+                  backgroundColor: colors[index % 10],
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() =>
+                    this.props.navigation.navigate("Categorie List", {
+                      categorie_id: item.id,
+                      categorie_name: item.name,
+                    })
+                  }
+                >
+                  <Card.Content>
+                    <View
+                      style={{
+                        flex: 1,
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}
+                    >
+                      <View style={{ marginRight: 10 }}>
+                        {item.name.includes("Beasiswa") ? (
+                          <Entypo
+                            name="graduation-cap"
+                            size={24}
+                            color={fontColors[index % 10]}
+                          />
+                        ) : (
+                          <FontAwesome5
+                            name="lightbulb"
+                            size={24}
+                            color={fontColors[index % 10]}
+                          />
+                        )}
+                      </View>
+                      <Title style={{ color: fontColors[index % 10] }}>
+                        {item.name}
+                      </Title>
+                      <AntDesign
+                        name="right"
+                        size={24}
+                        color={fontColors[index % 10]}
+                        style={{ marginLeft: "auto" }}
+                      />
                     </View>
-                    <Title style={{ color: fontColors[index % 10] }}>
-                      {item.name}
-                    </Title>
-                    <AntDesign
-                      name="right"
-                      size={24}
-                      color={fontColors[index % 10]}
-                      style={{ marginLeft: "auto" }}
-                    />
-                  </View>
-                </Card.Content>
-              </TouchableOpacity>
-            </Card>
+                  </Card.Content>
+                </TouchableOpacity>
+              </Card>
+            </>
           )}
           keyExtractor={(item, index) => index.toString()}
           ref={this.props.scrollRef}

@@ -1,6 +1,13 @@
 import React, { useContext, useState } from "react";
 import { Text, View, Linking, StyleSheet, Image } from "react-native";
-import { List, Switch, Dialog, Portal, Button } from "react-native-paper";
+import {
+  List,
+  Switch,
+  Dialog,
+  Portal,
+  Button,
+  Divider,
+} from "react-native-paper";
 import { ThemeContext } from "../components/ThemeController";
 import { AppLoading } from "expo";
 import {
@@ -9,6 +16,7 @@ import {
 } from "@expo-google-fonts/dancing-script";
 import SurfaceCard from "../components/SurfaceCard";
 import LottieView from "lottie-react-native";
+import { AdMobBanner } from "expo-ads-admob";
 
 const Miscellaneous = () => {
   const { toggleTheme, theme } = useContext(ThemeContext);
@@ -116,7 +124,7 @@ const Miscellaneous = () => {
             flexDirection: "column",
             justifyContent: "space-between",
             paddingTop: 20,
-            paddingBottom: 150,
+            paddingBottom: 125,
             paddingHorizontal: 20,
             backgroundColor: "white",
             position: "absolute",
@@ -211,6 +219,14 @@ const Miscellaneous = () => {
                   "https://www.instagram.com/caribeasiswa.online/"
                 )
               }
+            />
+          </View>
+          <View style={{ alignSelf: "center", marginTop: 25 }}>
+            <Divider style={{ marginBottom: 25 }} />
+            <AdMobBanner
+              bannerSize="banner"
+              adUnitID="ca-app-pub-1112252263707173/2146297018"
+              servePersonalizedAds
             />
           </View>
           {/* <View>
