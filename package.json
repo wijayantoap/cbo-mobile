@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo-google-fonts/dancing-script": "^0.1.0",
     "@expo-google-fonts/montserrat": "^0.1.0",
     "@expo-google-fonts/open-sans": "^0.1.0",
     "@expo/vector-icons": "^10.2.0",

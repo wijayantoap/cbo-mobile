@@ -88,7 +88,7 @@ export default function Navigator() {
 
   function MiscellaneousStack() {
     return (
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Miscellaneous" component={Miscellaneous} />
       </Stack.Navigator>
     );

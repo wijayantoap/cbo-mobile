@@ -1,14 +1,7 @@
 import React from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import moment from "moment";
-import {
-  Avatar,
-  Card,
-  Title,
-  Paragraph,
-  List,
-  withTheme,
-} from "react-native-paper";
+import { Card, Title, withTheme } from "react-native-paper";
 
 const ContentCard = ({ item, navigation, theme }) => {
   return (
